@@ -4,6 +4,8 @@
 This shows how you can make `xargs` run `n` jobs in parallel at any given time.
 It also keeps track of the succesfully finished jobs. And allows for retries of failed jobs.
 
+![diagram](./diagram.png)
+
 ## Tour
 
 [`jobs.csv`](./jobs.csv) is a list of jobs we want do perform. In our case just a list of letters:

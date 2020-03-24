@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-THREAD_COUNT=5
+THREAD_COUNT=6
 
-jobs="$(cat ./jobs.csv)"
+touch "./jobs_done.csv"
+jobs="$(comm -23 <(sort "./jobs.csv") <(sort "./jobs_done.csv"))"
 
 echo "$jobs" | xargs -P $THREAD_COUNT -L 1 ./job.sh

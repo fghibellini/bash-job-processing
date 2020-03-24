@@ -2,6 +2,7 @@
 # How to parallelize bash scripts
 
 This shows how you can make `xargs` run `n` jobs in parallel at any given time.
+It also keeps track of the succesfully finished jobs. And allows for retries of failed jobs.
 
 ## Tour
 
@@ -19,9 +20,11 @@ z
 
 1. print `<job_name> [starting]`
 2. sleep for random time between 3 and 15 seconds
-3. print `<job_name> [done]`
+3. adds itself to the list of succesfully finished jobs
+4. print `<job_name> [done]`
 
-[`scheduler.sh`](./scheduler.sh) will try to **run 6 jobs running at any given moment**.
+[`scheduler.sh`](./scheduler.sh) will compute the list of jobs that have still not been completed
+succesfully and try to **run 6 jobs running at any given moment**.
 
 ```bash
 $ ./scheduler.sh
@@ -44,3 +47,7 @@ $ ./scheduler | ./currently-running.sh
 RUNNING:
   a b f i j k
 ```
+
+## Upon failure
+
+`scheduler.sh` can be run multiple times in case of failures and it will simply retry all the operations that still haven't reported success.
